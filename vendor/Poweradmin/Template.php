@@ -13,7 +13,6 @@ class Template
     function display($template, $variables = array()) {
         extract($variables);
         ob_start();
-
         include($this->templateDirectory . '/' . $template . '.phtml');
         echo ob_get_clean();
     }
