@@ -21,14 +21,25 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Use class autoloader
 require dirname(__FILE__).'/vendor/autoload.php';
 
+// Check if all required PHP extensions are installed on the system
+Poweradmin\System::checkPhpExtensions();
+
+// Initialise main object
 $app = new Poweradmin\Application();
 
-exit;
 
-//if ($request->isPostMethod()) {
-//    require_once("inc/toolkit.inc.php");
+if ($app->request->isPostMethod()) {
+    // TODO: validate authentication
+    // TODO: display header
+    // TODO: get permissions
+    // TODO: display menu
+    // TODO: display content
+    // TODO: display footer
+
+    //require_once("inc/toolkit.inc.php");
 //    include_once("inc/header.inc.php");
 //
 //    echo "     <h3>" . _('Welcome') . " " . $_SESSION["name"] . "</h3>\n";
@@ -70,11 +81,12 @@ exit;
 //    echo "   </ul>\n";
 //
 //    include_once("inc/footer.inc.php");
-//} else {
-//    // header contains link to css file
-//    $tpl->display('header');
-//    $tpl->display('login');
-//    $tpl->display('footer');
-//}
+} else {
+    // otherwise display login form
+    // TODO: header contains link to css file
+    $app->template->display('header');
+    $app->template->display('login');
+    $app->template->display('footer');
+}
 
 ?>
