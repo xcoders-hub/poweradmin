@@ -33,4 +33,8 @@ class Benchmark
         return sprintf("%.5f", microtime(true) - $this->startTime);
     }
 
+    function displayCurrentStats() {
+        echo "Memory usage: " . $this->getMemoryUsage() . ", elapsed time: " . $this->getElapsedTime();
+    }
+
 }
