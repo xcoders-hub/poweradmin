@@ -24,20 +24,34 @@
 // Use class autoloader
 require dirname(__FILE__).'/vendor/autoload.php';
 
+// Initialise benchmarking counters
+$bench = new Poweradmin\Benchmark();
+
 // Check if all required PHP extensions are installed on the system
 Poweradmin\System::checkPhpExtensions();
+
+// TODO: check database settings
 
 // Initialise main object
 $app = new Poweradmin\Application();
 
-
+// Login form was submitted
 if ($app->request->isPostMethod()) {
+
+    // create db connection
+    // TODO: create db connection
+    $db = new Poweradmin\Database($app->config->getDbSettings());
+
     // TODO: validate authentication
     // TODO: display header
     // TODO: get permissions
     // TODO: display menu
     // TODO: display content
     // TODO: display footer
+
+    // display app usage stats
+    $bench->displayCurrentStats();
+    exit;
 
     //require_once("inc/toolkit.inc.php");
 //    include_once("inc/header.inc.php");
@@ -81,12 +95,16 @@ if ($app->request->isPostMethod()) {
 //    echo "   </ul>\n";
 //
 //    include_once("inc/footer.inc.php");
-} else {
-    // otherwise display login form
-    // TODO: header contains link to css file
-    $app->template->display('header');
-    $app->template->display('login');
-    $app->template->display('footer');
 }
+
+// by default and in case of auth error display login form
+// TODO: header contains link to css file
+// TODO: display authentication error
+$app->template->display('header');
+$app->template->display('login');
+$app->template->display('footer');
+
+// display app usage stats
+$bench->displayCurrentStats();
 
 ?>
